@@ -1,5 +1,8 @@
 const express = require('express');
 const connectDB = require('./config/db');
+
+const authRoutes = require('./routes/authRoutes');
+
 require('dotenv').config();
 
 const app = express();
@@ -14,6 +17,9 @@ connectDB();
 app.get('/', (req, res) => {
     res.send('Welcome to the API');
 });
+
+//Routes
+app.use('/auth', authRoutes);
 
 //SERVER
 const PORT = process.env.PORT || 5000;
