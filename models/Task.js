@@ -13,7 +13,7 @@ const taskSchema = new Schema(
             user: { type: Types.ObjectId, ref: 'User' },
         },
     },
-    { timeStamps: true }
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('Task', taskSchema);

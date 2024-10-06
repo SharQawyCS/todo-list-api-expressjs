@@ -7,7 +7,7 @@ const userSchema = new Schema(
         password: { type: String, required: true, unique: true },
         tasks: { type: Types.ObjectId, ref: 'Task' },
     },
-    { timeStamps: true }
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('User', userSchema);
