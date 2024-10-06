@@ -10,7 +10,7 @@ const taskSchema = new Schema(
             enum: ['not-started', 'in-progress', 'done'],
             default: 'not-started',
         },
-        date: Date,
+        dueDate: Date,
         user: { type: Types.ObjectId, ref: 'User' },
     },
     { timestamps: true }
