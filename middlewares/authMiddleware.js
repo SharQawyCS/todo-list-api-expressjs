@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = (req, res, next);
-{
+const authMiddleware = (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -19,6 +18,6 @@ const authMiddleware = (req, res, next);
     } catch (err) {
         return res.status(403).json({ message: 'Forbidden: Invalid token' });
     }
-}
+};
 
 module.exports = authMiddleware;

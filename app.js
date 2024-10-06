@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 
 //Routes
 app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
 
 //SERVER
 const PORT = process.env.PORT || 5000;
