@@ -1,48 +1,26 @@
 # todo-list-api-expressjs
 
-# Project Structure
+## Server route`/api` (NOT ADDED YET !!)
 
-### todo-api/
+## Authentication endpoints: `/auth`
 
-### ├── controllers/
+```
+- POST /register: Register a new user.
+- POST /login: Log in a user.
+```
 
-### │ ├── authController.js # User authentication (register, login)
+## Tasks endpoints: `/tasks`
 
-### │ └── taskController.js # Task operations (CRUD operations)
+```
+- POST /: Create a new task.
+- GET /: Get all tasks for the logged-in user.
+- GET /:id: Get a single task by its ID. (NOT ADDED YET !!)
+- PUT /:id: Update a task (title, status, etc.).
+- DELETE /:id: Delete a task.
+```
 
-### ├── models/
+## User endpoints: `/user`
 
-### │ ├── User.js # User schema and model
-
-### │ └── Task.js # Task schema and model
-
-### ├── routes/
-
-### │ ├── authRoutes.js # Routes for user authentication
-
-### │ └── taskRoutes.js # Routes for managing tasks
-
-### ├── middlewares/
-
-### │ └── authMiddleware.js # Middleware for protected routes
-
-### ├── server.js # Entry point of the API
-
-### └── config/
-
-### └── db.js # Database connection setup
-
-# outline for the RESTful API endpoints:
-
-## User Authentication:
-
-    •	POST /api/auth/register: Register a new user.
-    •	POST /api/auth/login: Log in a user.
-
-## Task Management:
-
-    •	POST /api/tasks: Create a new task.
-    •	GET /api/tasks: Get all tasks for the logged-in user.
-    •	GET /api/tasks/:id: Get a single task by its ID.
-    •	PUT /api/tasks/:id: Update a task (title, status, etc.).
-    •	DELETE /api/tasks/:id: Delete a task.
+```
+- POST /update-password: Update the password for the logged-in user.
+```
