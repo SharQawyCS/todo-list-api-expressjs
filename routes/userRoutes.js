@@ -1,5 +1,10 @@
 const express = require('express');
-const {} = require('../controllers/userController');
 const router = express.Router();
+const { changePassword } = require('../controllers/userController');
+const authMiddleware = require('../middlewares/authMiddleware');
+
+router.use(authMiddleware);
+
+router.post('/update-password', changePassword);
 
 module.exports = router;
