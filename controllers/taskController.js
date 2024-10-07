@@ -8,7 +8,6 @@ const createTask = async (req, res) => {
         const { title, description, status } = req.body;
 
         const userId = req.user.userId;
-        console.log(req.user);
 
         const task = await Task.create({
             title,
@@ -25,7 +24,21 @@ const createTask = async (req, res) => {
     }
 };
 
-const getTask = async (req, res) => {};
+const getTasks = async (req, res) => {
+    /**
+     * Get all tasks for specific user
+     * take tha id
+     * if exists, send it, if not, do not care
+     */
+    try {
+        const userId = req.user.userId;
+        const tasks = await Task.find({ user: userId });
+
+        res.status(200).json({ message: 'Tasks retrived!', tasks });
+    } catch (err) {
+        res.status(500).json({ message: 'Faild to retrive tasks' });
+    }
+};
 
 const updataTask = async (req, res) => {};
 
@@ -33,7 +46,7 @@ const deleteTask = async (req, res) => {};
 
 module.exports = {
     createTask,
-    getTask,
+    getTasks,
     updataTask,
     deleteTask,
 };
