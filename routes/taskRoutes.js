@@ -3,7 +3,7 @@ const router = express.Router();
 const {
     createTask,
     getTasks,
-    updataTask,
+    updateTask,
     deleteTask,
 } = require('../controllers/taskController');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -12,5 +12,6 @@ router.use(authMiddleware);
 
 router.post('/', createTask);
 router.get('/', getTasks);
+router.put('/:taskId', updateTask);
 
 module.exports = router;

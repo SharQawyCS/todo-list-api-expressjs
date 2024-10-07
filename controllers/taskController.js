@@ -25,13 +25,9 @@ const createTask = async (req, res) => {
 };
 
 const getTasks = async (req, res) => {
-    /**
-     * Get all tasks for specific user
-     * take tha id
-     * if exists, send it, if not, do not care
-     */
     try {
         const userId = req.user.userId;
+
         const tasks = await Task.find({ user: userId });
 
         res.status(200).json({ message: 'Tasks retrived!', tasks });
@@ -40,13 +36,37 @@ const getTasks = async (req, res) => {
     }
 };
 
-const updataTask = async (req, res) => {};
+const updateTask = async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const userId = req.user.userId;
+        const updatedTask = req.body;
+
+        const task = await Task.findOneAndUpdate(
+            { _id: taskId, user: userId },
+            updatedTask,
+            { new: true }
+        );
+
+        console.log({ taskId, userId, updatedTask, task });
+
+        if (!task) {
+            return res
+                .status(404)
+                .json({ message: 'Task not found or unauthorized' });
+        }
+
+        res.status(200).json({ message: 'task updated', task });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to update task', err });
+    }
+};
 
 const deleteTask = async (req, res) => {};
 
 module.exports = {
     createTask,
     getTasks,
-    updataTask,
+    updateTask,
     deleteTask,
 };
