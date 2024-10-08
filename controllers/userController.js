@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Task = require('../models/Task');
 const bcrypt = require('bcrypt');
 
 const changePassword = async (req, res) => {
@@ -33,4 +34,41 @@ const changePassword = async (req, res) => {
     }
 };
 
-module.exports = { changePassword };
+/**
+ * token, password
+ * check pass
+ * delete the tasks
+ * delete the acc
+ */
+const deleteAccount = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const userId = req.user.userId;
+        const user = await User.findById(userId).select('password tasks');
+
+        //todo: to model
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(500).json({
+                message: 'entered password is not match old password',
+            });
+        }
+
+        //todo: to model
+        const tasks = user.tasks;
+        const isTasksDeleted = await Task.deleteMany({ _id: { $in: tasks } });
+        if (!isTasksDeleted.acknowledged) {
+            return res.status(500).json({ message: 'tasks is not deleted' });
+        }
+
+        const isUserDeleted = await user.deleteOne();
+        if (!isUserDeleted.acknowledged) {
+            return res.status(500).json({ message: 'user is not deleted' });
+        }
+
+        return res.status(200).json({ message: 'user deleted!' });
+    } catch (err) {
+        return res.status(500).json({ message: 'user is not deleted', err });
+    }
+};
+module.exports = { changePassword, deleteAccount };
