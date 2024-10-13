@@ -23,4 +23,5 @@
 
 ```
 - POST /update-password: Update the password for the logged-in user.
+
 ```
