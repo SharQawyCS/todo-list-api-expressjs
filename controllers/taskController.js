@@ -14,6 +14,7 @@ const createTask = async (req, res) => {
             description,
             status,
             user: userId,
+            priority,
         });
 
         await User.findByIdAndUpdate(userId, { $push: { tasks: task._id } });
