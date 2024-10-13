@@ -7,7 +7,6 @@ const errorHandler = (err, req, res, next) => {
     res.status(statusCode).json({
         success: false,
         message,
-        error: process.env.NODE_ENV === 'development' ? err : undefined, // Send detailed error only in development
     });
 };
 

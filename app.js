@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const errorHandler = require('./middlewares/errorHandler');
 
 const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
@@ -24,6 +25,9 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
 app.use('/user', userRoutes);
+
+//Global error handling middleware
+app.use(errorHandler);
 
 //SERVER
 const PORT = process.env.PORT || 5000;

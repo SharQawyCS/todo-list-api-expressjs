@@ -1,29 +1,30 @@
+const asyncHandler = require('../middlewares/asyncHandler');
 const Task = require('../models/Task');
 const User = require('../models/User');
 
 //CRUD ops for tasks
 
-const createTask = async (req, res) => {
-    try {
-        const { title, description, status } = req.body;
+const createTask = asyncHandler(async (req, res) => {
+    const { title, description, status, priority } = req.body;
+    const userId = req.user.userId;
 
-        const userId = req.user.userId;
-
-        const task = await Task.create({
-            title,
-            description,
-            status,
-            user: userId,
-            priority,
-        });
-
-        await User.findByIdAndUpdate(userId, { $push: { tasks: task._id } });
-
-        res.status(201).json({ message: 'Task Created!' });
-    } catch (err) {
-        res.status(500).json({ message: 'Faild: Task Not Created!' });
+    if (!title) {
+        const error = new Error('Title is required!');
+        error.statusCode = 400;
+        throw error;
     }
-};
+
+    const task = await Task.create({
+        title,
+        description,
+        status,
+        user: userId,
+        priority,
+    });
+    await User.findByIdAndUpdate(userId, { $push: { tasks: task._id } });
+
+    res.status(201).json({ message: 'Task Created!', task });
+});
 
 const getTasks = async (req, res) => {
     try {
