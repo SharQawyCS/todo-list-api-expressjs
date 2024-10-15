@@ -58,11 +58,6 @@ const deleteTask = asyncHandler(async (req, res) => {
     const userId = req.user.userId;
 
     const task = await taskService.deleteTaskById(userId, taskId);
-    if (!task) {
-        const error = new Error('Task not found or unauthorized');
-        error.statusCode = 404;
-        throw error;
-    }
 
     res.status(200).json({ message: 'Task deleted successfully!', task });
 });

@@ -22,12 +22,12 @@ const updateTaskById = async (userId, taskId, updatedTaskData) => {
 
 const deleteTaskById = async (userId, taskId) => {
     const task = await Task.findOneAndDelete({ _id: taskId, user: userId });
+
     if (!task) {
         const error = new Error('Task not found or unauthorized');
         error.statusCode = 404;
         throw error;
     }
-
     await User.findByIdAndUpdate(userId, { $pull: { tasks: task._id } });
 };
 
