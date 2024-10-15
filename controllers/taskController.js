@@ -22,7 +22,7 @@ const createTask = asyncHandler(async (req, res) => {
 const getTasks = asyncHandler(async (req, res) => {
     const userId = req.user.userId;
 
-    const tasks = await Task.find({ user: userId });
+    const tasks = taskService.getUserTasks(userId);
 
     res.status(200).json({ message: 'Tasks retrived!', tasks });
 });

@@ -7,6 +7,11 @@ const createTask = async (userId, taskData) => {
     return task;
 };
 
+const getUserTasks = async (userId) => {
+    return await Task.find({ user: userId });
+};
+
 module.exports = {
     createTask,
+    getUserTasks,
 };
