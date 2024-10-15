@@ -1,6 +1,4 @@
 const asyncHandler = require('../middlewares/asyncHandler');
-const Task = require('../models/Task');
-const User = require('../models/User');
 const taskService = require('../services/taskService');
 
 //CRUD ops for tasks
