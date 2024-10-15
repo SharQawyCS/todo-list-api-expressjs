@@ -13,12 +13,18 @@ const createTask = asyncHandler(async (req, res) => {
         error.statusCode = 400;
         throw error;
     }
-
-    const task = taskService.createTask;
+    const taskData = {
+        title,
+        description,
+        status,
+        priority,
+    };
+    const task = taskService.createTask(userId, taskData);
 
     res.status(201).json({ message: 'Task Created!', task });
 });
 
+//todo: return tasks conut
 const getTasks = asyncHandler(async (req, res) => {
     const userId = req.user.userId;
 
@@ -27,17 +33,12 @@ const getTasks = asyncHandler(async (req, res) => {
     res.status(200).json({ message: 'Tasks retrived!', tasks });
 });
 
-//todo: return tasks conut
 const updateTask = asyncHandler(async (req, res) => {
     const { taskId } = req.params;
     const userId = req.user.userId;
-    const updatedTask = req.body;
+    const updatedTaskData = req.body;
 
-    const task = await Task.findOneAndUpdate(
-        { _id: taskId, user: userId },
-        updatedTask,
-        { new: true }
-    );
+    const task = taskService.updateTaskById(userId, taskId, updatedTaskData);
 
     if (!task) {
         const error = new Error('Task not found or unauthorized');

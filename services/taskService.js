@@ -11,7 +11,16 @@ const getUserTasks = async (userId) => {
     return await Task.find({ user: userId });
 };
 
+const updateTaskById = async (userId, taskId, updatedTaskData) => {
+    return await Task.findOneAndUpdate(
+        { _id: taskId, user: userId },
+        updatedTaskData,
+        { new: true }
+    );
+};
+
 module.exports = {
     createTask,
     getUserTasks,
+    updateTaskById,
 };
