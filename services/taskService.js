@@ -6,3 +6,7 @@ const createTask = async (userId, taskData) => {
     await User.findByIdAndUpdate(userId, { $push: { tasks: task._id } });
     return task;
 };
+
+module.exports = {
+    createTask,
+};
