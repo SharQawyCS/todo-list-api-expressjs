@@ -1,6 +1,7 @@
 const asyncHandler = require('../middlewares/asyncHandler');
 const Task = require('../models/Task');
 const User = require('../models/User');
+const taskService = require('../services/taskService');
 
 //CRUD ops for tasks
 const createTask = asyncHandler(async (req, res) => {
@@ -13,14 +14,7 @@ const createTask = asyncHandler(async (req, res) => {
         throw error;
     }
 
-    const task = await Task.create({
-        title,
-        description,
-        status,
-        user: userId,
-        priority,
-    });
-    await User.findByIdAndUpdate(userId, { $push: { tasks: task._id } });
+    const task = taskService.createTask;
 
     res.status(201).json({ message: 'Task Created!', task });
 });
