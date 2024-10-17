@@ -6,11 +6,6 @@ const createTask = asyncHandler(async (req, res) => {
     const { title, description, status, priority } = req.body;
     const userId = req.user.userId;
 
-    if (!title) {
-        const error = new Error('Title is required!');
-        error.statusCode = 400;
-        throw error;
-    }
     const taskData = {
         title,
         description,

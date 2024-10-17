@@ -3,7 +3,7 @@ const { Schema, Types } = mongoose;
 
 const taskSchema = new Schema(
     {
-        title: { type: String, required: true },
+        title: { type: String, required: [true, 'Title is required!'] },
         description: { type: String },
         status: {
             type: String,
